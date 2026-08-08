@@ -4,8 +4,8 @@ import { calculateBmi } from './bmiCalculator.ts';
 const app = express();
 
 app.get('/hello', (_req, res) => {
-  res.send("Hello Full Stack!")
-})
+  res.send("Hello Full Stack!");
+});
 
 app.get('/bmi', (req, res) => {
   const { height, weight } = req.query;
@@ -23,14 +23,15 @@ app.get('/bmi', (req, res) => {
       weight,
       height,
       bmi
-    })
-  } catch (_err) {
-    res.status(400).json({ error: "malformatted parameters" })
+    });
+  } catch (err) {
+    if (err instanceof Error) console.log(err);
+    res.status(400).json({ error: "malformatted parameters" });
   }
-})
+});
 
 const PORT = 3001;
 
 app.listen(PORT, () => {
-  console.log(`Server listening at :${PORT}`)
-})
+  console.log(`Server listening at :${PORT}`);
+});

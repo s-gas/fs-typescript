@@ -6,11 +6,11 @@ const parseArguments = (args: string[]): { height: number, weight: number } => {
   return {
     height,
     weight
-  }
-}
+  };
+};
 
 export const calculateBmi = (height: number, weight: number): string => {
-  if (!height || !weight) throw new Error("arguments cannot be zero")
+  if (!height || !weight) throw new Error("arguments cannot be zero");
   const heightMeter = height / 100;
   const bmi = weight / (heightMeter * heightMeter);
   if (bmi < 16) return "Underweight (Severe thinness)";
@@ -21,17 +21,17 @@ export const calculateBmi = (height: number, weight: number): string => {
   if (bmi < 35) return "Obese (Class I)";
   if (bmi < 40) return "Obese (Class II)";
   return "Obese (Class III)";
-}
+};
 
 if (process.argv[1] === import.meta.filename) {
   try {
-    const {height, weight} = parseArguments(process.argv)
+    const { height, weight } = parseArguments(process.argv);
     console.log(calculateBmi(height, weight));
   } catch (err) {
     if (err instanceof Error) {
       console.log(err);
     } else {
-      console.log("error")
+      console.log("error");
     }
   }
-}
+};
