@@ -8,6 +8,11 @@ interface Result {
   average: number;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const doesDailyExercisesContainNaN = (arr: any[]): boolean => {
+  return arr.some((e) => isNaN(Number(e)));
+};
+
 const parseArguments = (args: string[]): { target: number, dailyExercises: number[] } => {
   if (args.length < 4) throw new Error("usage: node exerciseCalculator <target> <dailyExercises[0]> <dailyExercises[1]> ...");
   const target = Number(args[2]);
@@ -24,7 +29,7 @@ const parseArguments = (args: string[]): { target: number, dailyExercises: numbe
   };
 };
 
-const calculateExercises = (dailyExerciseHours: number[], target: number): Result => {
+export const calculateExercises = (dailyExerciseHours: number[], target: number): Result => {
   const periodLength = dailyExerciseHours.length;
   const trainingDays = dailyExerciseHours.reduce((tot, cur) => cur ? tot + 1 : tot, 0);
   const average = dailyExerciseHours.reduce((tot, cur) => tot + cur, 0) / periodLength;
@@ -42,15 +47,15 @@ const calculateExercises = (dailyExerciseHours: number[], target: number): Resul
   };
 };
 
-try {
-  const { target, dailyExercises } = parseArguments(process.argv);
-  console.log(calculateExercises(dailyExercises, target));
-} catch (err) {
-  if (err instanceof Error) {
-    console.log(err);
-  } else {
-    console.log("error");
-  }
-};
-
-export { };
+if (process.argv[1] === import.meta.filename) {
+  try {
+    const { target, dailyExercises } = parseArguments(process.argv);
+    console.log(calculateExercises(dailyExercises, target));
+  } catch (err) {
+    if (err instanceof Error) {
+      console.log(err);
+    } else {
+      console.log("error");
+    }
+  };
+}
