@@ -1,7 +1,7 @@
 import data from "../data/diagnoses.ts" with { type: "json" };
-import type { DiagnoseEntry } from "../types.ts";
+import type { Diagnose } from "../types.ts";
 
-const diagnoses: DiagnoseEntry[] = data;
+const diagnoses: Diagnose[] = data;
 
 const getEntries = () => {
   return diagnoses;
