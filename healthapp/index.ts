@@ -16,17 +16,15 @@ app.get('/bmi', (req, res) => {
     res.status(400).json({ error: "malformatted parameters" });
     return;
   }
-  const heightNumber = Number(height);
-  const weightNumber = Number(weight);
-  if (isNaN(heightNumber) || isNaN(weightNumber)) {
+  if (isNaN(Number(height)) || isNaN(Number(weight))) {
     res.status(400).json({ error: "malformatted parameters" });
     return;
   }
   try {
-    const bmi = calculateBmi(heightNumber, weightNumber);
+    const bmi = calculateBmi(Number(height), Number(weight));
     res.json({
-      weight,
-      height,
+      weight: Number(weight),
+      height: Number(height),
       bmi
     });
   } catch (err) {
@@ -36,16 +34,16 @@ app.get('/bmi', (req, res) => {
 });
 
 app.post('/exercises', (req, res) => {
-  const { dailyExercises, target } = req.body;
-  if (!dailyExercises || !target) {
-    res.status(400).json({ error: "parameters missing " });
+  const { daily_exercises, target } = req.body;
+  if (!daily_exercises || !target) {
+    res.status(400).json({ error: "parameters missing" });
     return;
   }
-  if (!Array.isArray(dailyExercises) || doesDailyExercisesContainNaN(dailyExercises) || isNaN(Number(target))) {
-    res.status(400).json({ error: "malformatted parameters " });
+  if (!Array.isArray(daily_exercises) || doesDailyExercisesContainNaN(daily_exercises) || isNaN(Number(target))) {
+    res.status(400).json({ error: "malformatted parameters" });
     return;
   }
-  res.json(calculateExercises(dailyExercises as number[], target as number));
+  res.json(calculateExercises(daily_exercises as number[], target as number));
 });
 
 const PORT = 3000;
