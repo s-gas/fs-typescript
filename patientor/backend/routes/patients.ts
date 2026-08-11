@@ -14,7 +14,7 @@ router.post('/', (req, res) => {
   try {
     const newPatientEntry = NewPatientSchema.parse(req.body);
     const addedEntry = patientsService.addEntry(newPatientEntry);
-    res.status(201).json(addedEntry);
+    res.status(200).json(addedEntry);
   } catch (err: unknown) {
     if (err instanceof z.ZodError) {
       res.status(400).json({ error: err.issues });
