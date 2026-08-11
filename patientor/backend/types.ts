@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 export interface Diagnose {
   code: string;
   name: string;
@@ -23,3 +25,11 @@ export const Gender = {
 } as const;
 
 export type Gender = typeof Gender[keyof typeof Gender];
+
+export const NewPatientSchema = z.object({
+  name: z.string(),
+  dateOfBirth: z.iso.date(),
+  ssn: z.string().optional(),
+  gender: z.enum(Gender),
+  occupation: z.string(),
+});

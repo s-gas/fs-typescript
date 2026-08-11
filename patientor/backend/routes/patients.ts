@@ -1,6 +1,6 @@
 import express from "express";
 import patientsService from "../services/patients.ts";
-import { parseNewPatientEntry } from "../utils.ts";
+import { NewPatientSchema } from "../types.ts";
 
 const router = express.Router();
 
@@ -11,7 +11,7 @@ router.get('/', (_req, res) => {
 
 router.post('/', (req, res) => {
   try {
-    const newPatientEntry = parseNewPatientEntry(req.body);
+    const newPatientEntry = NewPatientSchema.parse(req.body);
     const addedEntry = patientsService.addEntry(newPatientEntry);
     res.status(201).json(addedEntry);
   } catch (err: unknown) {
