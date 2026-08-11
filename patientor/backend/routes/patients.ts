@@ -20,6 +20,6 @@ router.post('/', (req, res) => {
     }
     res.status(400).json({ error: "error" });
   }
-})
+});
 
 export default router;

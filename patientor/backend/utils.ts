@@ -1,4 +1,5 @@
-import type { NewPatientEntry, Gender } from "./types.ts";
+import type { NewPatientEntry } from "./types.ts";
+import { Gender } from "./types.ts";
 
 const parseString = (string: unknown): string => {
   if (!string || typeof string !== "string") {
@@ -26,17 +27,21 @@ const parseDateOfBirth = (dateOfBirth: unknown): string => {
     }
   }
   return dateOfBirth;
-}
+};
+
+const isGender = (gender: string): gender is Gender => {
+  return (Object.values(Gender) as string[]).includes(gender);
+};
 
 const parseGender = (gender: unknown): Gender => {
   if (!gender || typeof gender !== "string") {
     throw new Error("Invalid data: missing or invalid 'gender'");
   }
-  if (gender !== "male" && gender !== "female" && gender !== "other") {
+  if (!isGender(gender)) {
     throw new Error("Invalid data: invalid 'gender'");
   }
   return gender;
-}
+};
 
 export const parseNewPatientEntry = (body: unknown): NewPatientEntry => {
   if (!body || typeof body !== "object") {
@@ -54,7 +59,7 @@ export const parseNewPatientEntry = (body: unknown): NewPatientEntry => {
       gender: parseGender(body.gender),
       occupation: parseString(body.occupation),
       ssn: parseString(body.ssn)
-    }
+    };
   }
 
   return {
@@ -62,5 +67,5 @@ export const parseNewPatientEntry = (body: unknown): NewPatientEntry => {
     dateOfBirth: parseDateOfBirth(body.dateOfBirth),
     gender: parseGender(body.gender),
     occupation: parseString(body.occupation)
-  }
-}
+  };
+};

@@ -20,6 +20,6 @@ const addEntry = (patient: NewPatientEntry): Patient => {
   const id = uuid();
   patients.push({ ...patient, id });
   return { ...patient, id };
-}
+};
 
 export default { getEntries, addEntry };
