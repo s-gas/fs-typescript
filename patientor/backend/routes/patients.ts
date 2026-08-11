@@ -1,4 +1,5 @@
 import express from "express";
+import { z } from "zod";
 import patientsService from "../services/patients.ts";
 import { NewPatientSchema } from "../types.ts";
 
@@ -15,8 +16,8 @@ router.post('/', (req, res) => {
     const addedEntry = patientsService.addEntry(newPatientEntry);
     res.status(201).json(addedEntry);
   } catch (err: unknown) {
-    if (err instanceof Error) {
-      res.status(400).json({ error: err });
+    if (err instanceof z.ZodError) {
+      res.status(400).json({ error: err.issues });
     }
     res.status(400).json({ error: "error" });
   }
