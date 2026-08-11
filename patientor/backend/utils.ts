@@ -1,10 +1,10 @@
-import type { NewPatientEntry } from "./types.ts";
+import type { NewPatientEntry, Gender } from "./types.ts";
 
-const parseName = (name: unknown): string => {
-  if (!name || typeof name !== "string") {
-    throw new Error("Invalid data: missing or invalid 'weather'");
+const parseString = (string: unknown): string => {
+  if (!string || typeof string !== "string") {
+    throw new Error(`Invalid data: missing or invalid '${string}'`);
   }
-  return name;
+  return string;
 };
 
 const parseDateOfBirth = (dateOfBirth: unknown): string => {
@@ -14,11 +14,31 @@ const parseDateOfBirth = (dateOfBirth: unknown): string => {
   if (dateOfBirth.length !== "2000-00-00".length) {
     throw new Error("Invalid data: invalid 'dateOfBirth'");
   }
+  for (let i = 0; i < dateOfBirth.length; i++) {
+    if (i === 4 || i === 7) {
+      if (dateOfBirth[i] !== "-") {
+        throw new Error("Invalid data: invalid 'dateOfBirth'");
+      }
+    } else {
+      if (dateOfBirth[i] < "0" || dateOfBirth[i] > "9") {
+        throw new Error("Invalid data: invalid 'dateOfBirth'");
+      }
+    }
+  }
   return dateOfBirth;
 }
 
+const parseGender = (gender: unknown): Gender => {
+  if (!gender || typeof gender !== "string") {
+    throw new Error("Invalid data: missing or invalid 'gender'");
+  }
+  if (gender !== "male" && gender !== "female" && gender !== "other") {
+    throw new Error("Invalid data: invalid 'gender'");
+  }
+  return gender;
+}
+
 export const parseNewPatientEntry = (body: unknown): NewPatientEntry => {
-  console.log(body);
   if (!body || typeof body !== "object") {
     throw new Error("Invalid data");
   }
@@ -27,10 +47,20 @@ export const parseNewPatientEntry = (body: unknown): NewPatientEntry => {
     throw new Error("Invalid data: missing required fields");
   }
 
+  if ("ssn" in body) {
+    return {
+      name: parseString(body.name),
+      dateOfBirth: parseDateOfBirth(body.dateOfBirth),
+      gender: parseGender(body.gender),
+      occupation: parseString(body.occupation),
+      ssn: parseString(body.ssn)
+    }
+  }
+
   return {
-    name: parseName(body.name),
+    name: parseString(body.name),
     dateOfBirth: parseDateOfBirth(body.dateOfBirth),
-    gender: "male",
-    occupation: "Dentist"
+    gender: parseGender(body.gender),
+    occupation: parseString(body.occupation)
   }
 }

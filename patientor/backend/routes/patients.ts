@@ -10,16 +10,15 @@ router.get('/', (_req, res) => {
 });
 
 router.post('/', (req, res) => {
-  console.log(req.body);
   try {
     const newPatientEntry = parseNewPatientEntry(req.body);
-    console.log(newPatientEntry);
-    res.end();
-  } catch (err) {
+    const addedEntry = patientsService.addEntry(newPatientEntry);
+    res.status(201).json(addedEntry);
+  } catch (err: unknown) {
     if (err instanceof Error) {
-      console.log(err);
+      res.status(400).json({ error: err });
     }
-    res.status(500).json({ error: "error" });
+    res.status(400).json({ error: "error" });
   }
 })
 

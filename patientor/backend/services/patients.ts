@@ -1,5 +1,6 @@
+import { v1 as uuid } from "uuid";
 import data from "../data/patients.ts" with { type: "json" };
-import type { Patient, PatientWithoutSSN } from "../types.ts";
+import type { NewPatientEntry, Patient, PatientWithoutSSN } from "../types.ts";
 
 const patients: Patient[] = data;
 
@@ -15,4 +16,10 @@ const getEntries = (): PatientWithoutSSN[] => {
   ));
 };
 
-export default { getEntries };
+const addEntry = (patient: NewPatientEntry): Patient => {
+  const id = uuid();
+  patients.push({ ...patient, id });
+  return { ...patient, id };
+}
+
+export default { getEntries, addEntry };
