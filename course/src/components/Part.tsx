@@ -8,25 +8,25 @@ const Part = ({ part }: PartProps) => {
   switch (part.kind) {
     case "basic":
       return (
-        <>
-          <p>{part.name} {part.exerciseCount}</p>
-          <p>{part.description}</p>
-        </>
+        <div className="flex flex-col">
+          <p className="text-xl font-bold">{part.name} {part.exerciseCount}</p>
+          <p className="italic">{part.description}</p>
+        </div>
       );
     case "group":
       return (
-        <>
-          <p>{part.name} {part.exerciseCount}</p>
+        <div className="flex flex-col">
+          <p className="text-xl font-bold">{part.name} {part.exerciseCount}</p>
           <p>project exercises {part.groupProjectCount}</p>
-        </>
+        </div>
       );
     case "background":
       return (
-        <>
-          <p>{part.name} {part.exerciseCount}</p>
-          <p>{part.description}</p>
-          <p>submit to {part.backgroundMaterial}</p>
-        </>
+        <div className="flex flex-col">
+          <p className="text-xl font-bold">{part.name} {part.exerciseCount}</p>
+          <p className="italic">{part.description}</p>
+          <p>submit to <a className="underline underline-offset-4"href={part.backgroundMaterial}>{part.backgroundMaterial}</a></p>
+        </div>
       );
   }
 }

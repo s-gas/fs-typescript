@@ -42,7 +42,7 @@ function App() {
   const totalExercises = courseParts.reduce((tot, cur) => tot + cur.exerciseCount, 0);
 
   return (
-    <div>
+    <div className="flex flex-col gap-4 p-6">
       <Header text={courseName} />
       <Content parts={courseParts} />
       <Total total={totalExercises} />

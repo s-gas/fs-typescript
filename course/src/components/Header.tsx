@@ -4,7 +4,7 @@ interface HeaderProps {
 
 const Header = ({ text }: HeaderProps) => {
   return (
-    <h1>{text}</h1>
+    <h1 className="text-3xl font-bold">{text}</h1>
   )
 };
 
