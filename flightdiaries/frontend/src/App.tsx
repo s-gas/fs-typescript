@@ -20,7 +20,7 @@ function App() {
   }, []);
 
   return (
-    <div className="p-4 flex gap-8 items-start">
+    <div className="p-4 flex gap-8 items-start font-mono">
       <Table diaries={diaries} />
       <NewDiary diaries={diaries} setDiaries={setDiaries} />
     </div>

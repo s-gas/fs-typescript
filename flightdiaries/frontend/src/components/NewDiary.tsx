@@ -13,13 +13,14 @@ const NewDiary = ({ diaries, setDiaries }: NewDiaryProps) => {
 
   return (
       <form className="flex flex-col w-fit gap-2 border-l px-4">
-        <label className="flex justify-between gap-4 font-mono text-xs">
+        <label className="flex justify-between gap-4 text-xs">
           DATE
           <input type="date" className="border-b max-w-30" onChange={(e) => setDate(e.target.value)}/>
         </label>
-        <label className="flex justify-between gap-4 font-mono text-xs">
+        <label className="flex justify-between gap-4 text-xs">
           WEATHER
-          <select className="border-b w-26" onChange={(e) => setWeather(e.target.value)}>
+        <select className="border-b w-26" onChange={(e) => setWeather(e.target.value)}>
+            <option value=""></option>
             <option value="sunny">sunny</option>
             <option value="rainy">rainy</option>
             <option value="cloudy">cloudy</option>
@@ -27,16 +28,17 @@ const NewDiary = ({ diaries, setDiaries }: NewDiaryProps) => {
             <option value="windy">windy</option>
           </select>
         </label>
-        <label className="flex justify-between gap-4 font-mono text-xs">
+        <label className="flex justify-between gap-4 text-xs">
           VISIBILITY
           <select className="border-b w-26" onChange={(e) => setVisibility(e.target.value)}>
+            <option value=""></option>
             <option value="great">great</option>
             <option value="good">good</option>
             <option value="ok">ok</option>
             <option value="poor">poor</option>
           </select>
         </label>
-        <button type="submit" className="border rounded-sm px-3 py-1 cursor-pointer font-mono text-xs">ADD</button>
+        <button type="submit" className="border rounded-sm px-3 py-1 cursor-pointer text-xs">ADD</button>
       </form>
   )
 };
