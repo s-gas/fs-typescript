@@ -27,7 +27,7 @@ function App() {
         </tr>
       </thead>
       {diaries.map((diary) => (
-        <tbody>
+        <tbody key={diary.id}>
           <tr>
             <td>{diary.date}</td>
             <td>{diary.weather}</td>
