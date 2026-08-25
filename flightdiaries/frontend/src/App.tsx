@@ -18,9 +18,24 @@ function App() {
   }, []);
 
   return (
-    <>
-      {diaries.map((diary) => <p key={diary.id}>{diary.date} {diary.weather}</p>)}
-    </>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Weather</th>
+          <th>Visibility</th>
+        </tr>
+      </thead>
+      {diaries.map((diary) => (
+        <tbody>
+          <tr>
+            <td>{diary.date}</td>
+            <td>{diary.weather}</td>
+            <td>{diary.visibility}</td>
+          </tr>
+        </tbody>
+      ))}
+    </table>
   )
 }
 
