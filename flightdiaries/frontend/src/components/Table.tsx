@@ -7,11 +7,11 @@ interface TableProps {
 const Table = ({ diaries }: TableProps) => {
   return (
     <table className="text-center">
-      <thead className="border-b">
+      <thead className="border-b text-xs font-mono">
         <tr>
-          <th className="px-4">Date</th>
-          <th className="px-4">Weather</th>
-          <th className="px-4">Visibility</th>
+          <th className="px-4 font-normal">DATE</th>
+          <th className="px-4 font-normal">WEATHER</th>
+          <th className="px-4 font-normal">VISIBILITY</th>
         </tr>
       </thead>
       {diaries.map((diary) => (
