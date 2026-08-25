@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import diariesService from "./services/diaries";
+import Table from "./components/Table";
 import type { NonSensitiveDiaryEntry } from "../../backend/src/types";
 
 function App() {
@@ -18,24 +19,9 @@ function App() {
   }, []);
 
   return (
-    <table className="text-center">
-      <thead>
-        <tr>
-          <th className="px-2">Date</th>
-          <th className="px-2">Weather</th>
-          <th className="px-2">Visibility</th>
-        </tr>
-      </thead>
-      {diaries.map((diary) => (
-        <tbody key={diary.id}>
-          <tr>
-            <td>{diary.date}</td>
-            <td>{diary.weather}</td>
-            <td>{diary.visibility}</td>
-          </tr>
-        </tbody>
-      ))}
-    </table>
+    <div className="p-4">
+      <Table diaries={diaries} />
+    </div>
   )
 }
 
