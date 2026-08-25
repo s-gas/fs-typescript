@@ -19,7 +19,7 @@ function App() {
 
   return (
     <>
-      {diaries.map((diary) => <p key={diary.id}>{diary.weather}</p>)}
+      {diaries.map((diary) => <p key={diary.id}>{diary.date} {diary.weather}</p>)}
     </>
   )
 }
