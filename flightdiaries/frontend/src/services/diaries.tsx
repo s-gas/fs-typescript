@@ -3,9 +3,9 @@ import type { NonSensitiveDiaryEntry } from "../../../backend/src/types";
 
 const url = "http://localhost:3000/api/diaries";
 
-const getDiares = async () => {
+const getDiaries = async () => {
   const response = await axios.get<NonSensitiveDiaryEntry[]>(url);
   return response.data;
 };
 
-export default { getDiares };
+export default { getDiaries };

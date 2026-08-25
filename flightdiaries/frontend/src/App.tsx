@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import diariesService from "./services/diares";
+import diariesService from "./services/diaries";
 import type { NonSensitiveDiaryEntry } from "../../backend/src/types";
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
   useEffect(() => {
     const getDiares = async () => {
       try {
-        const diaries = await diariesService.getDiares();
+        const diaries = await diariesService.getDiaries();
         setDiaries(diaries);
       } catch (err) {
         console.log(err);
