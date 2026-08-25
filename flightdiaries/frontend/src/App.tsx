@@ -18,12 +18,12 @@ function App() {
   }, []);
 
   return (
-    <table>
+    <table className="text-center">
       <thead>
         <tr>
-          <th>Date</th>
-          <th>Weather</th>
-          <th>Visibility</th>
+          <th className="px-2">Date</th>
+          <th className="px-2">Weather</th>
+          <th className="px-2">Visibility</th>
         </tr>
       </thead>
       {diaries.map((diary) => (
