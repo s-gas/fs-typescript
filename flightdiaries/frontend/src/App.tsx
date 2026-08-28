@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import diariesService from "./services/diaries";
 import Table from "./components/Table";
 import NewDiary from "./components/NewDiary";
-import type { NonSensitiveDiaryEntry } from "../../backend/src/types";
+import type { NonSensitiveDiaryEntry } from "./types";
 
 function App() {
   const [diaries, setDiaries] = useState<NonSensitiveDiaryEntry[]>([]);

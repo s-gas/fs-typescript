@@ -1,5 +1,6 @@
-import { type NonSensitiveDiaryEntry } from "../../../backend/src/types";
+import type { Weather, Visibility, NewDiaryEntry, NonSensitiveDiaryEntry } from "../types";
 import { useState } from "react";
+import diariesService from "../services/diaries";
 
 interface NewDiaryProps {
   diaries: NonSensitiveDiaryEntry[];
@@ -7,16 +8,20 @@ interface NewDiaryProps {
 }
 
 const NewDiary = ({ diaries, setDiaries }: NewDiaryProps) => {
-  const [date, setDate] = useState('');
-  const [weather, setWeather] = useState('');
-  const [visibility, setVisibility] = useState('');
+  const [date, setDate] = useState("");
+  const [weather, setWeather] = useState<Weather | "">("");
+  const [visibility, setVisibility] = useState<Visibility | "">("");
 
-  const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
-    if (!active) return;
+  const handleSubmit = async (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(date);
-    console.log(weather);
-    console.log(visibility);
+    if (!active) return;
+    const entry: NewDiaryEntry = {
+      weather: weather as Weather,
+      visibility: visibility as Visibility,
+      date,
+    }
+    const response = await diariesService.addDiary(entry);
+    setDiaries(diaries.concat({id: response.id, weather: response.weather, visibility: response.visibility, date: response.date}))
     setDate('');
     setWeather('');
     setVisibility('');
@@ -35,7 +40,7 @@ const NewDiary = ({ diaries, setDiaries }: NewDiaryProps) => {
         <label className="flex justify-between gap-4 text-xs">
           WEATHER
         <select value={weather} className="border-b w-26" onChange={(e) => {
-          setWeather(e.target.value)
+          setWeather(e.target.value as Weather | "");
         }}>
             <option value=""></option>
             <option value="sunny">sunny</option>
@@ -48,7 +53,7 @@ const NewDiary = ({ diaries, setDiaries }: NewDiaryProps) => {
         <label className="flex justify-between gap-4 text-xs">
           VISIBILITY
         <select value={visibility} className="border-b w-26" onChange={(e) => {
-          setVisibility(e.target.value)
+          setVisibility(e.target.value as Visibility | "");
         }}>
             <option value=""></option>
             <option value="great">great</option>
