@@ -57,4 +57,4 @@ export const PatientsListSchema = z.array(z.object({
   gender: z.enum(Gender),
   dateOfBirth: z.string(),
   entries: z.array(z.object({})),
-}))
+}));
