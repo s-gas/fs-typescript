@@ -10,6 +10,17 @@ router.get('/', (_req, res) => {
   res.json(data);
 });
 
+router.get('/:id', (req, res) => {
+  try {
+    const { id } = req.params;
+    const entry = patientsService.getEntryById(id);
+    res.json(entry);
+  } catch (err) {
+    console.log(err);
+    res.status(404).end();
+  }
+});
+
 router.post('/', (req, res) => {
   try {
     const newPatientEntry = NewPatientSchema.parse(req.body);

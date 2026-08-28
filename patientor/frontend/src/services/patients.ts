@@ -7,7 +7,7 @@ const getAll = async () => {
   const { data } = await axios.get<Patient[]>(
     `${apiBaseUrl}/patients`
   );
-
+  console.log(data);
   return data;
 };
 
@@ -23,4 +23,3 @@ const create = async (object: PatientFormValues) => {
 export default {
   getAll, create
 };
-

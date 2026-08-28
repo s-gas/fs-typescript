@@ -18,10 +18,16 @@ const getEntries = (): NonSensitivePatient[] => {
   ));
 };
 
+const getEntryById = (id: string) => {
+  const entry = patients.find((p) => p.id === id);
+  if (!entry) throw new Error("entry not found");
+  return entry;
+}
+
 const addEntry = (patient: NewPatientEntry): Patient => {
   const id = uuid();
   patients.push({ ...patient, id, entries: [] });
   return { ...patient, id, entries: [] };
 };
 
-export default { getEntries, addEntry };
+export default { getEntries, getEntryById, addEntry };
