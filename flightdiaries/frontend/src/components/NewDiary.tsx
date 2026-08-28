@@ -1,6 +1,7 @@
 import type { Weather, Visibility, NewDiaryEntry, NonSensitiveDiaryEntry } from "../types";
 import { useState } from "react";
 import diariesService from "../services/diaries";
+import axios from "axios";
 
 interface NewDiaryProps {
   diaries: NonSensitiveDiaryEntry[];
@@ -11,6 +12,7 @@ const NewDiary = ({ diaries, setDiaries }: NewDiaryProps) => {
   const [date, setDate] = useState("");
   const [weather, setWeather] = useState<Weather | "">("");
   const [visibility, setVisibility] = useState<Visibility | "">("");
+  const [errorMessage, setErrorMessage] = useState("Ooops! Something went wrong");
 
   const handleSubmit = async (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -20,8 +22,19 @@ const NewDiary = ({ diaries, setDiaries }: NewDiaryProps) => {
       visibility: visibility as Visibility,
       date,
     }
-    const response = await diariesService.addDiary(entry);
-    setDiaries(diaries.concat({id: response.id, weather: response.weather, visibility: response.visibility, date: response.date}))
+    try {
+      const response = await diariesService.addDiary(entry);
+      setDiaries(diaries.concat({id: response.id, weather: response.weather, visibility: response.visibility, date: response.date}))
+    } catch (error) {
+      console.log(error);
+      if (axios.isAxiosError(error)) {
+        console.log(error.message);
+        setErrorMessage("Ooops! Something went wrong.");
+        setTimeout(() => {
+          setErrorMessage("");
+        }, 2000);
+      }
+    }
     setDate('');
     setWeather('');
     setVisibility('');
@@ -30,7 +43,8 @@ const NewDiary = ({ diaries, setDiaries }: NewDiaryProps) => {
   const active = Boolean(date && weather && visibility);
 
   return (
-      <form className="flex flex-col w-fit gap-2 border-l px-4" onSubmit={handleSubmit}>
+    <div className="flex flex-col px-4 border-l gap-2">
+      <form className="flex flex-col w-fit gap-2" onSubmit={handleSubmit}>
         <label className="flex justify-between gap-4 text-xs">
           DATE
         <input type="date" value={date} className="border-b max-w-30" onChange={(e) => {
@@ -62,11 +76,15 @@ const NewDiary = ({ diaries, setDiaries }: NewDiaryProps) => {
             <option value="poor">poor</option>
           </select>
         </label>
-      <button
-        type="submit"
-        className={`border rounded-sm px-3 py-1 text-xs ${active ? "cursor-pointer" : "opacity-50 cursor-not-allowed"}`}
-      >ADD</button>
+        <button
+          type="submit"
+          className={`border rounded-sm px-3 py-1 text-xs ${active ? "cursor-pointer" : "opacity-50 cursor-not-allowed"}`}
+        >
+          ADD
+        </button>
       </form>
+      {errorMessage && <p className="text-xs text-red-500">{errorMessage}</p>}
+    </div>
   )
 };
 
