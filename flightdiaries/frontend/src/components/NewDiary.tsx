@@ -12,7 +12,7 @@ const NewDiary = ({ diaries, setDiaries }: NewDiaryProps) => {
   const [date, setDate] = useState("");
   const [weather, setWeather] = useState<Weather | "">("");
   const [visibility, setVisibility] = useState<Visibility | "">("");
-  const [errorMessage, setErrorMessage] = useState("Ooops! Something went wrong");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = async (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
