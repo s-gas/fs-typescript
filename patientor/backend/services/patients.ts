@@ -22,7 +22,7 @@ const getEntryById = (id: string) => {
   const entry = patients.find((p) => p.id === id);
   if (!entry) throw new Error("entry not found");
   return entry;
-}
+};
 
 const addEntry = (patient: NewPatientEntry): Patient => {
   const id = uuid();
