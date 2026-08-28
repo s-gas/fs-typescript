@@ -1,21 +1,13 @@
 import { v1 as uuid } from "uuid";
 import data from "../data/patients.ts" with { type: "json" };
-import type { NewPatientEntry, NonSensitivePatient, Patient, PatientWithoutEntries } from "../types.ts";
+import type { NewPatientEntry, Patient, PatientWithoutEntries } from "../types.ts";
 import { PatientsListSchema } from "../types.ts";
 
 const patientsWithoutEntries: PatientWithoutEntries[] = data;
 const patients = PatientsListSchema.parse(patientsWithoutEntries.map((p) => ({ ...p, entries: [] })));
 
-const getEntries = (): NonSensitivePatient[] => {
-  return patients.map((patient) => (
-    {
-      id: patient.id,
-      name: patient.name,
-      dateOfBirth: patient.dateOfBirth,
-      gender: patient.gender,
-      occupation: patient.occupation
-    }
-  ));
+const getEntries = (): Patient[] => {
+  return patients;
 };
 
 const getEntryById = (id: string) => {
